@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"net/http/httptest"
 	"strconv"
 )
 
@@ -19,7 +18,7 @@ func New(animal datastore.Animal) AnimalHandler {
 	return AnimalHandler{animal}
 }
 
-func (animalHandler AnimalHandler) Handler(w *httptest.ResponseRecorder, r *http.Request) {
+func (animalHandler AnimalHandler) Handler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
 		animalHandler.get(w, r)
@@ -30,7 +29,7 @@ func (animalHandler AnimalHandler) Handler(w *httptest.ResponseRecorder, r *http
 	}
 }
 
-func (animalHandler AnimalHandler) get(w *httptest.ResponseRecorder, r *http.Request) {
+func (animalHandler AnimalHandler) get(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 
 	i, err := strconv.Atoi(id)
@@ -51,7 +50,7 @@ func (animalHandler AnimalHandler) get(w *httptest.ResponseRecorder, r *http.Req
 	_, _ = w.Write(body)
 }
 
-func (animalHandler AnimalHandler) create(w *httptest.ResponseRecorder, r *http.Request) {
+func (animalHandler AnimalHandler) create(w http.ResponseWriter, r *http.Request) {
 	var animal entities.Animal
 
 	body, _ := io.ReadAll(r.Body)

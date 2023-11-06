@@ -30,9 +30,9 @@ func initializeMySQL(t *testing.T) *sql.DB {
 
 func TestDatastore(t *testing.T) {
 	db := initializeMySQL(t)
-	animalstorer := New(db)
-	testAnimalStorer_Create(t, animalstorer)
-	testAnimalStorer_Get(t, animalstorer)
+	animalStore := New(db)
+	testAnimalStorer_Create(t, animalStore)
+	testAnimalStorer_Get(t, animalStore)
 }
 
 func testAnimalStorer_Create(t *testing.T, db AnimalStorer) {
