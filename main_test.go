@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"github.com/joho/godotenv"
 	"log"
 	"net/http"
@@ -40,12 +41,13 @@ func Test_Handler(t *testing.T) {
 		expectedStatusCode int
 		expectedResponse   []byte
 	}{
-		{"POST", []byte(`[{"Name":"Hippo","Age":10}]`), http.StatusOK, []byte(`success`)},
+		{"POST", []byte(`{"Name":"Hippo","Age":10}`), http.StatusOK, []byte(`success`)},
 		{"GET", nil, http.StatusOK, []byte(`[{"Name":"Hippo","Age":10}]`)},
 		{"DELETE", nil, http.StatusMethodNotAllowed, nil},
 	}
 
 	for _, testcase := range testcases {
+		fmt.Println(testcase.method)
 		req := httptest.NewRequest(testcase.method, "/animal", bytes.NewReader(testcase.body))
 		w := httptest.NewRecorder()
 
