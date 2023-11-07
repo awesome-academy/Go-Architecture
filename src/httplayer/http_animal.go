@@ -9,7 +9,7 @@ import (
 	"strconv"
 )
 
-func (api httpApi) CreateAnimal(writer http.ResponseWriter, request *http.Request) {
+func (api httpApi) createAnimal(writer http.ResponseWriter, request *http.Request) {
 	var animal entities.Animal
 
 	body, _ := io.ReadAll(request.Body)
@@ -19,7 +19,6 @@ func (api httpApi) CreateAnimal(writer http.ResponseWriter, request *http.Reques
 		fmt.Println(err)
 		_, _ = writer.Write([]byte("invalid body"))
 		writer.WriteHeader(http.StatusBadRequest)
-
 		return
 	}
 
@@ -35,7 +34,7 @@ func (api httpApi) CreateAnimal(writer http.ResponseWriter, request *http.Reques
 	_, _ = writer.Write(body)
 }
 
-func (api httpApi) GetAnimalById(writer http.ResponseWriter, request *http.Request) {
+func (api httpApi) getAnimalById(writer http.ResponseWriter, request *http.Request) {
 	id := request.URL.Query().Get("id")
 
 	i, err := strconv.Atoi(id)
@@ -56,7 +55,7 @@ func (api httpApi) GetAnimalById(writer http.ResponseWriter, request *http.Reque
 	_, _ = writer.Write(body)
 }
 
-func (api httpApi) GetAllAnimals(writer http.ResponseWriter, request *http.Request) {
+func (api httpApi) getAllAnimals(writer http.ResponseWriter, request *http.Request) {
 	resp, err := api.app.GetAllAnimals()
 	if err != nil {
 		_, _ = writer.Write([]byte("Could not retrieve animals!"))

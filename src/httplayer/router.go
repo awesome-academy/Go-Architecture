@@ -22,9 +22,9 @@ func New(applayer applayer.App) *httpApi {
 
 func (api httpApi) setupRoutes() {
 	r = mux.NewRouter()
-	r.HandleFunc("/animal", api.CreateAnimal).Methods("POST")
-	r.HandleFunc("/animals", api.GetAnimalById).Queries("id", "{id}").Methods("GET")
-	r.HandleFunc("/animals", api.GetAllAnimals).Methods("GET")
+	r.HandleFunc("/animal", api.createAnimal).Methods("POST")
+	r.HandleFunc("/animals", api.getAnimalById).Queries("id", "{id}").Methods("GET")
+	r.HandleFunc("/animals", api.getAllAnimals).Methods("GET")
 }
 
 func (api *httpApi) Engage() {
