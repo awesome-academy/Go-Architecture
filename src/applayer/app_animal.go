@@ -1,7 +1,7 @@
 package applayer
 
 import (
-	"Go-Architecture/src/entities"
+	"Go-Architecture/src/httplayer/entities"
 )
 
 func (app app) CreateAnimal(animal entities.Animal) (entities.Animal, error) {

@@ -1,8 +1,8 @@
 package storelayer
 
 import (
-	"Go-Architecture/src/driver"
-	"Go-Architecture/src/entities"
+	"Go-Architecture/src/httplayer/entities"
+	"Go-Architecture/src/storelayer/driver"
 	"Go-Architecture/src/utils"
 	"database/sql"
 	"os"

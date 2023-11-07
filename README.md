@@ -1,9 +1,9 @@
 # Go Architecture
 Demo common Architecture for web servers golang
 - This Project demo API create/get animals
-Diagram:
 
-## 3 Layered Architecture
+## Sample 3 Layered Architecture
+Diagram:
 ![alt text](https://github.com/awesome-academy/Go-Architecture/blob/layered-architecture/images/layered-architectures.png?raw=true)
 
 - Using [godotenv](https://github.com/joho/godotenv) to loads environment variables from .env files
@@ -13,19 +13,47 @@ Source Code:
 
 **Branch:** [layered-architecture](https://github.com/awesome-academy/Go-Architecture/tree/layered-architecture)
 
-## Clean-Architecture
-- TBD
+### How to run this project?
+We can run this project with Docker. Here, I am providing both ways to run this project.
 
-## 👬 Contribution
+- Clone this project
 
-The Example are built using GoLand 2023.2.2
+```bash
+# Move to your workspace
+cd your-workspace
 
-- Open pull request with improvements
-- Discuss ideas in issues
-- Spread the word
-- Reach out to me directly at le.quang.dao@sun-asterisk.com
+# Clone this project into your workspace
+git clone https://github.com/awesome-academy/Go-Architecture.git
 
+# Move to the project root directory
+cd Go-Architecture
+```
 
-## License
+- Create a file `.env` similar to `.env.example` at the root directory with your configuration.
+- Install Docker and Docker Compose.
+- Run `docker-compose up -d`.
+- Access API using `http://localhost:3000
 
-The content of this project itself is licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0)
+### Example API Request and Response
+- Create animal
+  - request
+    ```
+    curl --location --request POST 'http://localhost:3000/animal' \
+    --header 'Content-Type: application/x-www-form-urlencoded' \
+    --data-urlencode 'Name=Name Test' \
+    --data-urlencode 'Age=10'
+    ```
+  
+  - response
+  
+  ```json
+    {
+      "ID": 5,
+      "Name": "Name Test",
+      "Age": 10
+    }
+  ```
+
+### Contributing to Go Architecture
+
+All pull requests are welcome.

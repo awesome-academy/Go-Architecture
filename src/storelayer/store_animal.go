@@ -1,7 +1,7 @@
 package storelayer
 
 import (
-	"Go-Architecture/src/entities"
+	"Go-Architecture/src/httplayer/entities"
 	"database/sql"
 )
 

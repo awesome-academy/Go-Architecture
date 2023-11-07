@@ -1,7 +1,7 @@
 package httplayer
 
 import (
-	"Go-Architecture/src/entities"
+	"Go-Architecture/src/httplayer/entities"
 	"encoding/json"
 	"fmt"
 	"io"
