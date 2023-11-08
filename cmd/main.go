@@ -6,4 +6,5 @@ func main() {
 	app := bootstrap.App()
 
 	defer app.CloseDBConnection()
+
 }
