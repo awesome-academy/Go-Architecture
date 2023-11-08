@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 
 services:
   web:
@@ -12,7 +12,8 @@ services:
     ports:
       - "$PORT:$PORT"
     depends_on:
-      - mysql-db
+      wait-for-db:
+          condition: service_completed_successfully
 
   mysql-db:
     image: mysql:8.1.0
@@ -27,6 +28,12 @@ services:
       - "${SQL_PORT}:${SQL_PORT}"
     volumes:
       - db:/var/lib/mysql-db
+
+  wait-for-db:
+    image: atkrad/wait4x
+    depends_on:
+      - mysql-db
+    command: tcp mysql-db:3306 -t 30s -i 250ms
 
 volumes:
   db:

@@ -32,25 +32,22 @@ cd Go-Architecture
 - Create a file `.env` similar to `.env.example` at the root directory with your configuration.
 - Install Docker and Docker Compose.
 - Run `docker-compose up -d`.
-- Access API using `http://localhost:3000
+- Access API using http://localhost:3000
 
 ### Example API Request and Response
 - Create animal
   - request
     ```
-    curl --location --request POST 'http://localhost:3000/animal' \
-    --header 'Content-Type: application/x-www-form-urlencoded' \
-    --data-urlencode 'Name=Name Test' \
-    --data-urlencode 'Age=10'
+      curl -X POST http://localhost:3000/animal -H 'Content-Type: application/json' -d '{"name":"Name Test","age":10}'
     ```
   
   - response
   
   ```json
     {
-      "ID": 5,
-      "Name": "Name Test",
-      "Age": 10
+      "id": 1,
+      "name": "Name Test",
+      "age": 10
     }
   ```
 

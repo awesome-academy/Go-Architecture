@@ -35,7 +35,7 @@ func New() *store {
 	if err != nil {
 		panic("Failed to connect database!")
 	}
-	// TODO implement db.migrate
-	_, err = db.Exec("CREATE TABLE IF NOT EXISTS animals(id int NOT NULL AUTO_INCREMENT,name varchar(50),age int,PRIMARY KEY(id))")
+	_, err = db.Exec("CREATE TABLE IF NOT EXISTS animals (id int NOT NULL AUTO_INCREMENT PRIMARY KEY,name varchar(50),age int)")
+	// TODO implement migrate
 	return &store{db: db}
 }
