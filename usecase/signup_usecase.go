@@ -4,6 +4,7 @@ import (
 	"Go-Architecture/domain"
 	"Go-Architecture/domain/entity"
 	"Go-Architecture/repository"
+	"Go-Architecture/utils/tokenutil"
 	"context"
 	"time"
 )
@@ -26,17 +27,16 @@ func (su signupUsecase) GetUserByEmail(c context.Context, email string) (entity.
 	return su.userRepository.GetByEmail(ctx, email)
 }
 
-func (s signupUsecase) Create(c context.Context, user *entity.User) error {
-	//TODO implement me
-	panic("implement me")
+func (su signupUsecase) Create(c context.Context, user *entity.User) error {
+	ctx, cancel := context.WithTimeout(c, su.contextTimeout)
+	defer cancel()
+	return su.userRepository.Create(ctx, user)
 }
 
 func (s signupUsecase) CreateAccessToken(user *entity.User, secret string, expiry int) (accessToken string, err error) {
-	//TODO implement me
-	panic("implement me")
+	return tokenutil.CreateAccessToken(user, secret, expiry)
 }
 
 func (s signupUsecase) CreateRefreshToken(user *entity.User, secret string, expiry int) (refreshToken string, err error) {
-	//TODO implement me
-	panic("implement me")
+	return tokenutil.CreateRefreshToken(user, secret, expiry)
 }
