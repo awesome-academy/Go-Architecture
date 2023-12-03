@@ -7,13 +7,18 @@ import (
 )
 
 type Env struct {
-	AppEnv        string `env:"APP_ENV,required"`
-	ServerAddress string `env:"SERVER_ADDRESS,required"`
-	DBHost        string `env:"DB_HOST" envDefault:"127.0.0.1"`
-	DBPort        string `env:"DB_PORT"`
-	DBUser        string `env:"DB_USER"`
-	DBPass        string `env:"DB_PASS"`
-	DBName        string `env:"DB_NAME"`
+	AppEnv                 string `env:"APP_ENV,required"`
+	ServerAddress          string `env:"SERVER_ADDRESS,required"`
+	DBHost                 string `env:"DB_HOST" envDefault:"127.0.0.1"`
+	ContextTimeOut         int    `env:"CONTEXT_TIMEOUT"`
+	DBPort                 string `env:"DB_PORT"`
+	DBUser                 string `env:"DB_USER"`
+	DBPass                 string `env:"DB_PASS"`
+	DBName                 string `env:"DB_NAME"`
+	AccessTokenSecret      string `env:"ACCESS_TOKEN_SECRET"`
+	RefreshTokenSecret     string `env:"REFRESH_TOKEN_SECRET"`
+	AccessTokenExpiryHour  int    `env:"ACCESS_TOKEN_EXPIRY_HOUR"`
+	RefreshTokenExpiryHour int    `env:"REFRESH_TOKEN_EXPIRY_HOUR"`
 }
 
 func NewEnv() *Env {
