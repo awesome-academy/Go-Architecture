@@ -31,8 +31,14 @@ func NewPostgresDatabase(env *Env) *gorm.DB {
 		db.Logger = logger.Default.LogMode(logger.Info)
 	}
 
-	db.Callback().Create().Replace("gorm:update_time_stamp", updateTimeStampForCreateCallback)
-	db.Callback().Update().Replace("gorm:update_time_stamp", updateTimeStampForUpdateCallback)
+	err = db.Callback().Create().Replace("gorm:update_time_stamp", updateTimeStampForCreateCallback)
+	if err != nil {
+		return nil
+	}
+	err = db.Callback().Update().Replace("gorm:update_time_stamp", updateTimeStampForUpdateCallback)
+	if err != nil {
+		return nil
+	}
 
 	sqlDB, _ := db.DB()
 	sqlDB.SetMaxIdleConns(10)
