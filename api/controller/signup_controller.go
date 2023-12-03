@@ -3,7 +3,7 @@ package controller
 import (
 	"Go-Architecture/bootstrap"
 	"Go-Architecture/domain"
-	"Go-Architecture/domain/entities"
+	"Go-Architecture/domain/entity"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
@@ -45,7 +45,7 @@ func (sc SignupController) Signup(context *gin.Context) {
 	request.Password = string(encryptedPassword)
 
 	// Register new user
-	user := entities.User{
+	user := entity.User{
 		Name:     request.Name,
 		Email:    request.Email,
 		Password: request.Password,

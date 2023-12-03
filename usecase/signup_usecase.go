@@ -2,9 +2,9 @@ package usecase
 
 import (
 	"Go-Architecture/domain"
-	"Go-Architecture/domain/entities"
+	"Go-Architecture/domain/entity"
 	"Go-Architecture/repository"
-	"golang.org/x/net/context"
+	"context"
 	"time"
 )
 
@@ -20,22 +20,23 @@ func NewSignupUsecase(userRepository repository.UserRepository, timeout time.Dur
 	}
 }
 
-func (s signupUsecase) GetUserByEmail(context context.Context, email string) (entities.User, error) {
+func (su signupUsecase) GetUserByEmail(c context.Context, email string) (entity.User, error) {
+	ctx, cancel := context.WithTimeout(c, su.contextTimeout)
+	defer cancel()
+	return su.userRepository.GetByEmail(ctx, email)
+}
+
+func (s signupUsecase) Create(c context.Context, user *entity.User) error {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s signupUsecase) Create(context context.Context, user *entities.User) error {
+func (s signupUsecase) CreateAccessToken(user *entity.User, secret string, expiry int) (accessToken string, err error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s signupUsecase) CreateAccessToken(user *entities.User, secret string, expiry int) (accessToken string, err error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (s signupUsecase) CreateRefreshToken(user *entities.User, secret string, expiry int) (refreshToken string, err error) {
+func (s signupUsecase) CreateRefreshToken(user *entity.User, secret string, expiry int) (refreshToken string, err error) {
 	//TODO implement me
 	panic("implement me")
 }
