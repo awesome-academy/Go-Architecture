@@ -7,3 +7,7 @@ type User struct {
 	Email    string `json:"email" gorm:"column:email"`
 	Password string `bson:"password" gorm:"column:password"`
 }
+
+func (User) TableName() string {
+	return "users"
+}

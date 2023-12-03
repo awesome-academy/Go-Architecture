@@ -17,6 +17,7 @@ func NewUserRepository(db *gorm.DB) UserRepository {
 type UserRepository interface {
 	GetByEmail(ctx context.Context, email string) (entity.User, error)
 	Create(ctx context.Context, user *entity.User) error
+	GetByID(ctx context.Context, id string) (entity.User, error)
 }
 
 func (ur userRepository) GetByEmail(ctx context.Context, email string) (entity.User, error) {
@@ -33,4 +34,13 @@ func (ur userRepository) Create(ctx context.Context, user *entity.User) error {
 		return err
 	}
 	return nil
+}
+
+func (ur userRepository) GetByID(ctx context.Context, email string) (entity.User, error) {
+	var user entity.User
+	db := ur.database.Where("id = ?", email).Find(&user)
+	if db.Error != nil {
+		return entity.User{}, db.Error
+	}
+	return user, nil
 }
