@@ -18,5 +18,5 @@ func Setup(env *bootstrap.Env, timeout time.Duration, db *gorm.DB, gin *gin.Engi
 	// Middleware to verify AccessToken
 	protectedRouter.Use(middleware.JwtAuthMiddleware(env.AccessTokenSecret))
 	// All privates APIs
-	// NewProfileRouter
+	NewProfileRouter(timeout, db, protectedRouter)
 }
