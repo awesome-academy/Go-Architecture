@@ -5,7 +5,7 @@ type Task struct {
 
 	Title       string `json:"title" form:"title" binding:"required"`
 	Description string `json:"description"`
-	UserID      int    `json:"userID"`
+	UserID      string `json:"userID"`
 }
 
 func (Task) TableName() string {
