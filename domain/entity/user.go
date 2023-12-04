@@ -5,7 +5,7 @@ type User struct {
 
 	Name     string `json:"name" gorm:"column:name"`
 	Email    string `json:"email" gorm:"column:email"`
-	Password string `bson:"password" gorm:"column:password"`
+	Password string `json:"password" gorm:"column:password"`
 }
 
 func (User) TableName() string {
