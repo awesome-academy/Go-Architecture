@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS jwt_custom_refresh_claims;

@@ -2,11 +2,12 @@ package bootstrap
 
 import (
 	"fmt"
+	"log"
+	"time"
+
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-	"log"
-	"time"
 )
 
 var DB *gorm.DB
@@ -22,7 +23,6 @@ func NewPostgresDatabase(env *Env) *gorm.DB {
 	)
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-
 	if err != nil {
 		log.Fatalf("Fail connect to DB %v", err)
 	}
@@ -32,10 +32,6 @@ func NewPostgresDatabase(env *Env) *gorm.DB {
 	}
 
 	err = db.Callback().Create().Replace("gorm:update_time_stamp", updateTimeStampForCreateCallback)
-	if err != nil {
-		return nil
-	}
-	err = db.Callback().Update().Replace("gorm:update_time_stamp", updateTimeStampForUpdateCallback)
 	if err != nil {
 		return nil
 	}

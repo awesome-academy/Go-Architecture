@@ -4,9 +4,10 @@ import (
 	"Go-Architecture/bootstrap"
 	"Go-Architecture/domain"
 	"Go-Architecture/domain/entity"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
-	"net/http"
 )
 
 type SignupController struct {
@@ -25,9 +26,10 @@ func (sc SignupController) Signup(context *gin.Context) {
 		return
 	}
 
+	var checkUser entity.User
 	// Check email is registered
-	_, err = sc.SignupUsecase.GetUserByEmail(context, request.Email)
-	if err == nil {
+	checkUser, err = sc.SignupUsecase.GetUserByEmail(context, request.Email)
+	if err == nil && checkUser.Email == request.Email {
 		context.JSON(http.StatusConflict, domain.ErrorResponse{Message: "User already exists with the given email!"})
 		return
 	}
