@@ -1,7 +1,9 @@
 package entity
 
+import "gorm.io/gorm"
+
 type Task struct {
-	BaseEntity
+	gorm.Model
 
 	Title       string `json:"title" form:"title" binding:"required"`
 	Description string `json:"description"`
