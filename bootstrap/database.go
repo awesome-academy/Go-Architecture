@@ -1,6 +1,7 @@
 package bootstrap
 
 import (
+	"Go-Architecture/domain/entity"
 	"fmt"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -46,7 +47,10 @@ func NewPostgresDatabase(env *Env) *gorm.DB {
 
 	log.Println("Connected")
 
-	// TODO Running migrations
+	err = db.AutoMigrate(&entity.User{}, &entity.Task{})
+	if err != nil {
+		return nil
+	}
 
 	DB = db
 	return DB

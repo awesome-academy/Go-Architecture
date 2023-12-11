@@ -19,4 +19,9 @@ func main() {
 	http := gin.Default()
 
 	route.Setup(env, timeout, app.Db, http)
+
+	err := http.Run()
+	if err != nil {
+		return
+	}
 }
