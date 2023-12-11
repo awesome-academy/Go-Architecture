@@ -26,8 +26,8 @@ func (sc SignupController) Signup(context *gin.Context) {
 	}
 
 	// Check email is registered
-	_, err = sc.SignupUsecase.GetUserByEmail(context, request.Email)
-	if err == nil {
+	checkUser, err := sc.SignupUsecase.GetUserByEmail(context, request.Email)
+	if err == nil && checkUser.Email == request.Email {
 		context.JSON(http.StatusConflict, domain.ErrorResponse{Message: "User already exists with the given email!"})
 		return
 	}
