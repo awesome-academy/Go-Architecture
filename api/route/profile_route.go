@@ -15,4 +15,5 @@ func NewProfileRouter(timeout time.Duration, db *gorm.DB, group *gin.RouterGroup
 		ProfileUsecase: usecase.NewProfileUsecase(ur, timeout),
 	}
 	group.GET("/profile", pc.Fetch)
+	group.PUT("/profile", pc.Update)
 }

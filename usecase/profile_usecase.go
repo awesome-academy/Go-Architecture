@@ -31,3 +31,10 @@ func (pu *profileUsecase) GetProfileByID(c context.Context, userID string) (*ent
 
 	return &entity.UserProfile{Name: user.Name, Email: user.Email}, nil
 }
+
+func (pu *profileUsecase) UpdateUserName(c context.Context, userID string, userName string) error {
+	ctx, cancel := context.WithTimeout(c, pu.contextTimeout)
+	defer cancel()
+
+	return pu.userRepository.Update(ctx, userID, userName)
+}
