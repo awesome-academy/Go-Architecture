@@ -12,7 +12,7 @@ func CreateAccessToken(user *entity.User, secret string, expiry int) (accessToke
 	exp := time.Now().Add(time.Hour * time.Duration(expiry))
 	claims := &entity.JwtCustomClaims{
 		Name: user.Name,
-		ID:   strconv.Itoa(user.ID),
+		ID:   strconv.FormatInt(int64(user.ID), 10),
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(exp),
 		},
@@ -27,7 +27,7 @@ func CreateAccessToken(user *entity.User, secret string, expiry int) (accessToke
 
 func CreateRefreshToken(user *entity.User, secret string, expiry int) (refreshToken string, err error) {
 	claimsRefresh := &entity.JwtCustomRefreshClaims{
-		ID: strconv.Itoa(user.ID),
+		ID: strconv.FormatInt(int64(user.ID), 10),
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * time.Duration(expiry))),
 		},

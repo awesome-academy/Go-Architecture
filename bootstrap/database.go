@@ -7,7 +7,6 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"log"
-	"time"
 )
 
 var DB *gorm.DB
@@ -30,15 +29,6 @@ func NewPostgresDatabase(env *Env) *gorm.DB {
 
 	if env.AppEnv == "development" {
 		db.Logger = logger.Default.LogMode(logger.Info)
-	}
-
-	err = db.Callback().Create().Replace("gorm:update_time_stamp", updateTimeStampForCreateCallback)
-	if err != nil {
-		return nil
-	}
-	err = db.Callback().Update().Replace("gorm:update_time_stamp", updateTimeStampForUpdateCallback)
-	if err != nil {
-		return nil
 	}
 
 	sqlDB, _ := db.DB()
@@ -68,33 +58,4 @@ func CloseDB(ormDb *gorm.DB) {
 	}
 
 	log.Println("Connection to DB closed.")
-}
-
-// updateTimeStampForCreateCallback will set `CreatedOn`, `ModifiedOn` when creating
-func updateTimeStampForCreateCallback(db *gorm.DB) {
-	nowTime := time.Now().Unix()
-	if createTimeField := db.Statement.Schema.LookUpField("CreatedOn"); createTimeField != nil {
-		if createTimeField.HasDefaultValue {
-			err := createTimeField.Set(db.Statement.Context, db.Statement.ReflectValue, nowTime)
-			if err != nil {
-				return
-			}
-		}
-	}
-
-	if modifyTimeField := db.Statement.Schema.LookUpField("ModifiedOn"); modifyTimeField != nil {
-		if modifyTimeField.HasDefaultValue {
-			err := modifyTimeField.Set(db.Statement.Context, db.Statement.ReflectValue, nowTime)
-			if err != nil {
-				return
-			}
-		}
-	}
-}
-
-// updateTimeStampForUpdateCallback will set `ModifiedOn` when updating
-func updateTimeStampForUpdateCallback(db *gorm.DB) {
-	if _, ok := db.Get("gorm:update_column"); !ok {
-		db.Statement.SetColumn("ModifiedOn", time.Now().Unix())
-	}
 }
