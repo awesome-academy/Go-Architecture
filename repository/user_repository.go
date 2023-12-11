@@ -18,6 +18,7 @@ type UserRepository interface {
 	GetByEmail(ctx context.Context, email string) (entity.User, error)
 	Create(ctx context.Context, user *entity.User) error
 	GetByID(ctx context.Context, id string) (entity.User, error)
+	Update(ctx context.Context, id string, name string) error
 }
 
 func (ur userRepository) GetByEmail(ctx context.Context, email string) (entity.User, error) {
@@ -36,11 +37,16 @@ func (ur userRepository) Create(ctx context.Context, user *entity.User) error {
 	return nil
 }
 
-func (ur userRepository) GetByID(ctx context.Context, email string) (entity.User, error) {
+func (ur userRepository) GetByID(ctx context.Context, id string) (entity.User, error) {
 	var user entity.User
-	db := ur.database.Where("id = ?", email).Find(&user)
+	db := ur.database.Where("id = ?", id).Find(&user)
 	if db.Error != nil {
 		return entity.User{}, db.Error
 	}
 	return user, nil
+}
+
+func (ur userRepository) Update(ctx context.Context, id string, name string) error {
+	db := ur.database.Model(&entity.User{}).Where("id = ?", id).Update("name", name)
+	return db.Error
 }
