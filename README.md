@@ -31,7 +31,7 @@ cd Go-Architecture
 
 - Create a file `.env` similar to `.env.example` at the root directory with your configuration.
 - Install Docker and Docker Compose.
-- Run `docker-compose up -d`.
+- Run `docker-compose up`
 - Access API using http://localhost:3000
 
 ### Example API Request and Response
